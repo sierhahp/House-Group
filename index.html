@@ -25,10 +25,17 @@
             color: white;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between; /* Space logo and title evenly */            ;
             font-size: 24px;
             font-weight: bold;
+            padding: 0 20px;
         }
+
+        header img {
+            height: 70%; /* Scales the image to fit within the header */
+            margin-right: 15px; /* Adds spacing between the image and text */
+        }
+
 
         footer {
             height: 50px;
@@ -92,7 +99,7 @@
         }
 
         .house {
-            border: 1px solid #ccc;
+            border: 1px solid #ffffff;
             padding: 10px;
             border-radius: 8px;
             background-color: #ffffff;
@@ -129,7 +136,7 @@
             background-color: #ffffff;
             
             border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
 
         .interactive button {
@@ -183,12 +190,79 @@
             border-radius: 5px;
             padding: 5px 10px;
         }
+
+            #login-form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #login-form label {
+            color: white;
+            font-size: 14px;
+        }
+
+        #login-form input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #login-form button {
+            padding: 10px;
+            background-color: #5bc0de;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #login-form button:hover {
+            background-color: #102a5d;
+        }
+
+        header img {
+            height: 50px;
+        }
+
+        .header-login {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .header-logo {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
     </style>
 </head>
-<body>
-    <header>
+<header>
+    <div class="header-login">
+        <form id="login-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <div class="header-logo">
+        <img src='Marian Logo (1).jpeg' alt="Marian Logo">
+    </div>
+    <div class="header-title">
         <strong>Marian Middle School - House Points Program</strong>
-    </header>
+    </div>
+</header>
+
     <div class="content">
         <div class="toolbar">
             <div class="leaderboard">
@@ -211,6 +285,7 @@
         </div>
         <div class="houses"></div>
     </div>
+
     <footer>
         © 2024 Marian Middle School
     </footer>
@@ -349,6 +424,46 @@
             document.getElementById("restart-button").addEventListener("click", resetScores);
             document.getElementById("load-json-button").addEventListener("click", fetchData);
         });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // ... (existing code)
+
+            const loginForm = document.getElementById('login-form');
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                login(username, password);
+            });
+
+            const login = (username, password) => {
+                fetch('logins.json') // Fetch the login data
+                    .then(response => response.json())
+                    .then(data => {
+                        const teacher = data.teachers.find(t => t.username === username);
+                        if (teacher) {
+                            bcrypt.compare(password, teacher.password, (err, result) => {
+                                if (result) {
+                                    alert('Login successful!');
+                                    // Here you might want to hide the login form and show logged-in content
+                                    document.querySelector('.login-form').style.display = 'none';
+                                    // Possibly update UI to reflect logged-in state
+                                } else {
+                                    alert('Wrong password');
+                                }
+                            });
+                        } else {
+                            alert('Username not found');
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error loading login data:", error);
+                        alert('Error loading login data');
+                    });
+            };
+
+        });
+
     </script>
 </body>
 </html>

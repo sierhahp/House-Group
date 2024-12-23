@@ -1,0 +1,8 @@
+{
+    "teachers": [
+        { "username": "teacher1", "password": "$2b$10$Huwj6uJ/yVIyEn4X2r9CUuBnzJzWr7ZGQlwvUTxKnRpNwjeSgD5ae" },
+        { "username": "teacher2", "password": "$2b$10$ktFwzZSpqojmD2RGw1D69O1yzbkMsZ3JLFKRVyBBUEWjXMRtGnp8W" },
+        { "username": "teacher3", "password": "$2b$10$LXN8F1wEItBivLT/M.EQeuFp9k2ZClo2sdIf7gBfjtpAEYuRhkm.m" },
+        { "username": "teacher4", "password": "$2b$10$Wxv3YFG1xxWy/kMc3CqHtuW3AGsFd.vCQ6RU1uSKbvRVFfzg2OfJW" }
+    ]
+}
