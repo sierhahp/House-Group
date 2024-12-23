@@ -1,0 +1,83 @@
+{
+    "red": {
+        "points": 196,
+        "students": [
+            { "name": "Carmen Arriaga", "points": 34 },
+            { "name": "Lauryn Jackson", "points": 28 },
+            { "name": "Gabrielle Jones", "points": 20 },
+            { "name": "Valeria Lopez-Bello", "points": 39 },
+            { "name": "Kynnedi Mitchell", "points": 9 },
+            { "name": "Jazarai Brandon", "points": 22 },
+            { "name": "Allison Garcia-Guerrero", "points": 37 },
+            { "name": "Jaleeya Blackmon", "points": 20 },
+            { "name": "Chloe Williams", "points": 33 }
+        ]
+    },
+    "orange": {
+        "points": 206,
+        "students": [
+            { "name": "Carolina Medina Mejia", "points": 36 },
+            { "name": "Tamia Daniel", "points": 26 },
+            { "name": "Coraji Yatah Brooks", "points": 14 },
+            { "name": "Fytiha Bradley-Davis", "points": 17 },
+            { "name": "Markiya Jones", "points": 18 },
+            { "name": "Jannely Sanchez Olvera", "points": 39 },
+            { "name": "KyLee Grimes", "points": 29 },
+            { "name": "Alana Alexander", "points": 22 },
+            { "name": "Ana Perez Maya", "points": 34 }
+        ]
+    },
+    "yellow": {
+        "points": 206,
+        "students": [
+            { "name": "Sophia Chrissos", "points": 48 },
+            { "name": "Hannah Foster", "points": 48 },
+            { "name": "Rose Dees", "points": 20 },
+            { "name": "Londyn York", "points": 15 },
+            { "name": "Taliiy'n Jones", "points": 17 },
+            { "name": "Essence Brooks", "points": 24 },
+            { "name": "Allison Escoto Montoya", "points": 13 },
+            { "name": "Peyton Brown", "points": 28 }
+        ]
+    },
+    "green": {
+        "points": 179,
+        "students": [
+            { "name": "Phoenix Harsley", "points": 47 },
+            { "name": "Myracle Pie", "points": 27 },
+            { "name": "Emily Elliott", "points": 24 },
+            { "name": "Shawnee Lampkin", "points": 25 },
+            { "name": "Cidney Young", "points": 5 },
+            { "name": "Autumn Brown", "points": 32 },
+            { "name": "Ta'Niyah Evans", "points": -1 },
+            { "name": "Ivy Robertson", "points": 36 }
+        ]
+    },
+    "blue": {
+        "points": 168,
+        "students": [
+            { "name": "Isabelle Comfort", "points": 32 },
+            { "name": "Rachel Herron", "points": 23 },
+            { "name": "Jayla Smith", "points": 11 },
+            { "name": "Nevaeh Wilson", "points": 18 },
+            { "name": "Rylie Higdon", "points": 25 },
+            { "name": "Kenya McGee", "points": 7 },
+            { "name": "Ryder Robertson", "points": 18 },
+            { "name": "Kaitlyn Morgado-Palacios", "points": 36 },
+            { "name": "Paidyn Bledsoe", "points": 22 }
+        ]
+    },
+    "purple": {
+        "points": 152,
+        "students": [
+            { "name": "Heavenlee Criss", "points": 10 },
+            { "name": "McKenzie Poynter", "points": 27 },
+            { "name": "Blaize Rice", "points": 22 },
+            { "name": "Abibatou Watson", "points": 14 },
+            { "name": "Gabby Criss", "points": 28 },
+            { "name": "Aubri Robinson", "points": 7 },
+            { "name": "De'Aunna Whitfield", "points": 30 },
+            { "name": "Brylea Gather", "points": 33 }
+        ]
+    }
+}
