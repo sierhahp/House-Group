@@ -13,6 +13,7 @@
 
         body {
             font-family: 'Trebuchet MS', sans-serif;
+            font-size: 18px;
             display: flex;
             flex-direction: column;
             height: 100vh;
@@ -26,7 +27,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 30px;
             font-weight: bold;
         }
 
@@ -37,7 +38,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 16px;
         }
 
         .content {
@@ -47,7 +48,7 @@
         }
 
         .toolbar {
-            width: 30%;
+            width: 25%;
             border-right: 1px solid #ccc;
             display: flex;
             flex-direction: column;
@@ -61,7 +62,7 @@
         }
 
         .leaderboard h2 {
-            font-size: 18px;
+            font-size: 20px;
             margin-bottom: 10px;
             color: #20438d;
         }
@@ -77,14 +78,13 @@
             padding: 5px 10px;
             margin-bottom: 5px;
             border-radius: 5px;
-            font-size: 14px;
+            font-size: 16px;
             color: rgb(0, 0, 0);
         }
 
         .houses {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(2, 1fr);
             gap: 15px;
             flex: 1;
             padding: 15px;
@@ -97,19 +97,14 @@
             border-radius: 8px;
             background-color: #ffffff;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
         }
 
         .house h3 {
-            text-transform: capitalize;
+            text-align: center;
             color: white;
             padding: 5px;
             border-radius: 3px;
             margin-bottom: 10px;
-            text-align: center;
-            font-size: 16px;
         }
 
         .house.red h3 { background-color: red; }
@@ -119,50 +114,34 @@
         .house.blue h3 { background-color: #4d9ad4; }
         .house.purple h3 { background-color: purple; }
 
-        .interactive {
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             margin-bottom: 5px;
         }
 
-        .interactive button {
+        button {
             background-color: #ddd;
             border: 1px solid #ccc;
             padding: 5px 10px;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 12px;
         }
 
-        .interactive button:hover {
+        button:hover {
             background-color: #ccc;
         }
-
-        ul {
-            padding-left: 15px;
-        }
-
-        ul li {
-            margin-bottom: 5px;
-            font-size: 14px;
-            color: white;
-            border-radius: 5px;
-            padding: 5px 10px;
-        }
-
-        .red { background-color: red; }
-        .orange { background-color: orange; }
-        .yellow { background-color: #fdfd96; color: black; }
-        .green { background-color: green; }
-        .blue { background-color: #4d9ad4; }
-        .purple { background-color: purple; }
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const houses = {
                 red: {
-                    points: 196,
                     students: [
                         { name: "Carmen Arriaga", points: 34 },
                         { name: "Lauryn Jackson", points: 28 },
@@ -176,7 +155,6 @@
                     ]
                 },
                 orange: {
-                    points: 206,
                     students: [
                         { name: "Carolina Medina Mejia", points: 36 },
                         { name: "Tamia Daniel", points: 26 },
@@ -190,7 +168,6 @@
                     ]
                 },
                 yellow: {
-                    points: 206,
                     students: [
                         { name: "Sophia Chrissos", points: 48 },
                         { name: "Hannah Foster", points: 48 },
@@ -203,7 +180,6 @@
                     ]
                 },
                 green: {
-                    points: 179,
                     students: [
                         { name: "Phoenix Harsley", points: 47 },
                         { name: "Myracle Pie", points: 27 },
@@ -216,7 +192,6 @@
                     ]
                 },
                 blue: {
-                    points: 168,
                     students: [
                         { name: "Isabelle Comfort", points: 32 },
                         { name: "Rachel Herron", points: 23 },
@@ -230,7 +205,6 @@
                     ]
                 },
                 purple: {
-                    points: 152,
                     students: [
                         { name: "Heavenlee Criss", points: 10 },
                         { name: "McKenzie Poynter", points: 27 },
@@ -244,72 +218,58 @@
                 }
             };
 
-            const updateLeaderboards = () => {
-                const houseLeaderboard = document.querySelector(".house-leaderboard");
-                const studentLeaderboard = document.querySelector(".student-leaderboard");
-
-                // Update House Leaderboard with row colors
-                houseLeaderboard.innerHTML = Object.entries(houses)
-                    .sort((a, b) => b[1].points - a[1].points)
-                    .map(([house, data]) => `<li class="${house}">${house.charAt(0).toUpperCase() + house.slice(1)}<span>${data.points}</span></li>`)
-                    .join("");
-
-                // Update Student Leaderboard with row colors (Top 25 Only)
-                const allStudents = Object.values(houses)
-                    .flatMap(house => house.students.map(student => ({ ...student, house })))
-                    .sort((a, b) => b.points - a.points)
-                    .slice(0, 25);
-
-                studentLeaderboard.innerHTML = allStudents
-                    .map(student => `<li class="${student.house}">${student.name}<span>${student.points}</span></li>`)
-                    .join("");
-            };
-
             const grid = document.querySelector(".houses");
-            grid.innerHTML = "";
-            for (const [house, data] of Object.entries(houses)) {
+
+            for (const [houseName, houseData] of Object.entries(houses)) {
                 const houseDiv = document.createElement("div");
-                houseDiv.className = `house ${house}`;
+                houseDiv.className = `house ${houseName}`;
+
                 houseDiv.innerHTML = `
-                    <h3>${house.charAt(0).toUpperCase() + house.slice(1)}</h3>
+                    <h3>${houseName.charAt(0).toUpperCase() + houseName.slice(1)}</h3>
                     <ul>
-                        ${data.students.map(student => `<li class="interactive ${house}"><button onclick="student.points--; updateLeaderboards();">-</button>${student.name}<button onclick="student.points++; updateLeaderboards();">+</button></li>`).join("")}
+                        ${houseData.students.map((student, index) => `
+                            <li>
+                                <span>${student.name}</span>
+                                <button onclick="updatePoints('${houseName}', ${index}, -1)">-</button>
+                                <span id="${houseName}-student-${index}">${student.points}</span>
+                                <button onclick="updatePoints('${houseName}', ${index}, 1)">+</button>
+                            </li>
+                        `).join('')}
                     </ul>
                 `;
+
                 grid.appendChild(houseDiv);
             }
 
-            updateLeaderboards();
+            window.updatePoints = (houseName, studentIndex, change) => {
+                const student = houses[houseName].students[studentIndex];
+                student.points += change;
+                document.getElementById(`${houseName}-student-${studentIndex}`).textContent = student.points;
+            };
         });
-
-        updateLeaderboards();
     </script>
 </head>
 <body>
-    <header>
-        Marian Middle School - House Points Program
-    </header>
+    <header>Marian Middle School - House Points Program</header>
     <div class="content">
         <div class="toolbar">
             <div class="leaderboard">
                 <h2>House Leaderboard</h2>
                 <ol class="house-leaderboard">
-                    <!-- Dynamically Populated -->
+                    <!-- Leaderboard content goes here -->
                 </ol>
             </div>
             <div class="leaderboard">
                 <h2>Student Leaderboard</h2>
                 <ol class="student-leaderboard">
-                    <!-- Dynamically Populated -->
+                    <!-- Leaderboard content goes here -->
                 </ol>
             </div>
         </div>
         <div class="houses">
-            <!-- Dynamically Populated -->
+            <!-- Houses dynamically populated here -->
         </div>
     </div>
-    <footer>
-        © 2024 Marian Middle School
-    </footer>
+    <footer>© 2024 Marian Middle School</footer>
 </body>
 </html>
