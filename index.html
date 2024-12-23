@@ -219,6 +219,30 @@
             };
 
             const grid = document.querySelector(".houses");
+            const houseLeaderboard = document.querySelector(".house-leaderboard");
+            const studentLeaderboard = document.querySelector(".student-leaderboard");
+
+            const updateLeaderboards = () => {
+                // Update House Leaderboard
+                houseLeaderboard.innerHTML = Object.entries(houses)
+                    .map(([houseName, houseData]) => {
+                        const totalPoints = houseData.students.reduce((sum, student) => sum + student.points, 0);
+                        return { house: houseName, points: totalPoints };
+                    })
+                    .sort((a, b) => b.points - a.points)
+                    .map(house => `<li class="${house.house}">${house.house.charAt(0).toUpperCase() + house.house.slice(1)}<span>${house.points}</span></li>`)
+                    .join('');
+
+                // Update Student Leaderboard (Top 25)
+                const allStudents = Object.values(houses)
+                    .flatMap(house => house.students.map(student => ({ ...student, house: house })))
+                    .sort((a, b) => b.points - a.points)
+                    .slice(0, 25);
+
+                studentLeaderboard.innerHTML = allStudents
+                    .map(student => `<li>${student.name} (${student.house})<span>${student.points}</span></li>`)
+                    .join('');
+            };
 
             for (const [houseName, houseData] of Object.entries(houses)) {
                 const houseDiv = document.createElement("div");
@@ -245,7 +269,10 @@
                 const student = houses[houseName].students[studentIndex];
                 student.points += change;
                 document.getElementById(`${houseName}-student-${studentIndex}`).textContent = student.points;
+                updateLeaderboards();
             };
+
+            updateLeaderboards();
         });
     </script>
 </head>
