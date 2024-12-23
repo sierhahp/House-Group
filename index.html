@@ -112,12 +112,12 @@
             font-size: 16px;
         }
 
-        .house.red h3 { background-color: red; }
-        .house.orange h3 { background-color: orange; }
-        .house.yellow h3 { background-color: #fdfd96; color: black; }
-        .house.green h3 { background-color: green; }
-        .house.blue h3 { background-color: #4d9ad4; }
-        .house.purple h3 { background-color: purple; }
+        .house.red h3 { background-color: rgb(150, 10, 10); }
+        .house.orange h3 { background-color: rgb(216, 150, 27); }
+        .house.yellow h3 { background-color: #f0f023; color: black; }
+        .house.green h3 { background-color: rgb(48, 114, 48); }
+        .house.blue h3 { background-color: #0f3d5f; }
+        .house.purple h3 { background-color: rgb(90, 21, 90); }
 
         .interactive {
             display: flex;
@@ -127,6 +127,7 @@
             padding: 5px 10px;
             margin-bottom: 5px;
             background-color: #ffffff;
+            
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
@@ -150,6 +151,7 @@
 
         .interactive button:hover {
             background-color: #102a5d;
+            color: white;
         }
 
         .interactive .minus {
@@ -197,6 +199,12 @@
                 <h2>Student Leaderboard (Top 25)</h2>
                 <ol class="student-leaderboard"></ol>
             </div>
+            <button id="restart-button" style="margin-top: 10px; padding: 10px; background-color: #d9534f; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                Restart
+            </button>
+            <button id="load-json-button" style="margin-top: 10px; padding: 10px; background-color: #5bc0de; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                Load From JSON
+            </button>
             <button id="export-button" style="margin-top: 10px; padding: 10px; background-color: #20438d; color: white; border: none; border-radius: 5px; cursor: pointer;">
                 Export to Excel
             </button>
@@ -211,113 +219,135 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Fetch data from houses.json
-            fetch('houses.json')
-                .then(response => response.json())
-                .then(houses => {
-                    const updateLeaderboards = () => {
-                        const houseLeaderboard = document.querySelector(".house-leaderboard");
-                        houseLeaderboard.innerHTML = Object.entries(houses)
-                            .sort((a, b) => b[1].points - a[1].points)
-                            .map(([house, data]) => `
-                                <li class="${house}">
-                                    ${house.charAt(0).toUpperCase() + house.slice(1)}
-                                    <span>${data.points}</span>
+            let houses = {}; // Will hold the loaded data
+
+            const fetchData = () => {
+                return fetch('houses.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        houses = data;
+                        renderHouses();
+                        updateLeaderboards();
+                    })
+                    .catch(error => console.error("Error loading house data:", error));
+            };
+
+            const updateLeaderboards = () => {
+                const houseLeaderboard = document.querySelector(".house-leaderboard");
+                houseLeaderboard.innerHTML = Object.entries(houses)
+                    .sort((a, b) => b[1].points - a[1].points)
+                    .map(([house, data]) => `
+                        <li class="${house}">
+                            ${house.charAt(0).toUpperCase() + house.slice(1)}
+                            <span>${data.points}</span>
+                        </li>
+                    `).join("");
+
+                const studentLeaderboard = document.querySelector(".student-leaderboard");
+                const allStudents = Object.values(houses)
+                    .flatMap(house => house.students.map(student => ({ ...student, house })))
+                    .sort((a, b) => b.points - a.points)
+                    .slice(0, 25);
+
+                studentLeaderboard.innerHTML = allStudents
+                    .map(student => `
+                        <li class="${student.house}">
+                            ${student.name}<span>${student.points}</span>
+                        </li>
+                    `).join("");
+            };
+
+            const renderHouses = () => {
+                const grid = document.querySelector(".houses");
+                grid.innerHTML = "";
+
+                Object.entries(houses).forEach(([house, data]) => {
+                    const houseDiv = document.createElement("div");
+                    houseDiv.className = `house ${house}`;
+                    houseDiv.innerHTML = `
+                        <h3>${house.charAt(0).toUpperCase() + house.slice(1)}</h3>
+                        <ul>
+                            ${data.students.map((student, index) => `
+                                <li class="interactive ${house}" data-house="${house}" data-index="${index}">
+                                    <button class="minus">-</button>
+                                    ${student.name}
+                                    <button class="plus">+</button>
+                                    <span class="student-points">${student.points}</span>
                                 </li>
-                            `).join("");
+                            `).join("")}
+                        </ul>
+                    `;
+                    grid.appendChild(houseDiv);
+                });
+            };
 
-                        const studentLeaderboard = document.querySelector(".student-leaderboard");
-                        const allStudents = Object.values(houses)
-                            .flatMap(house => house.students.map(student => ({ ...student, house })))
-                            .sort((a, b) => b.points - a.points)
-                            .slice(0, 25);
+            const recalculateHousePoints = (houseName) => {
+                const house = houses[houseName];
+                house.points = house.students.reduce((sum, student) => sum + student.points, 0);
+            };
 
-                        studentLeaderboard.innerHTML = allStudents
-                            .map(student => `
-                                <li class="${student.house}">
-                                    ${student.name}<span>${student.points}</span>
-                                </li>
-                            `).join("");
-                    };
+            const handleClick = (event) => {
+                const target = event.target;
 
-                    const renderHouses = () => {
-                        const grid = document.querySelector(".houses");
-                        grid.innerHTML = "";
+                if (target.classList.contains("plus") || target.classList.contains("minus")) {
+                    const listItem = target.closest(".interactive");
+                    const houseName = listItem.dataset.house;
+                    const studentIndex = parseInt(listItem.dataset.index, 10);
+                    const student = houses[houseName].students[studentIndex];
 
-                        Object.entries(houses).forEach(([house, data]) => {
-                            const houseDiv = document.createElement("div");
-                            houseDiv.className = `house ${house}`;
-                            houseDiv.innerHTML = `
-                                <h3>${house.charAt(0).toUpperCase() + house.slice(1)}</h3>
-                                <ul>
-                                    ${data.students.map((student, index) => `
-                                        <li class="interactive ${house}" data-house="${house}" data-index="${index}">
-                                            <button class="minus">-</button>
-                                            ${student.name}
-                                            <button class="plus">+</button>
-                                            <span class="student-points">${student.points}</span>
-                                        </li>
-                                    `).join("")}
-                                </ul>
-                            `;
-                            grid.appendChild(houseDiv);
-                        });
-                    };
+                    if (target.classList.contains("plus")) {
+                        student.points++;
+                    } else if (target.classList.contains("minus")) {
+                        student.points--;
+                    }
 
-                    const recalculateHousePoints = (houseName) => {
-                        const house = houses[houseName];
-                        house.points = house.students.reduce((sum, student) => sum + student.points, 0);
-                    };
-
-                    const handleClick = (event) => {
-                        const target = event.target;
-
-                        if (target.classList.contains("plus") || target.classList.contains("minus")) {
-                            const listItem = target.closest(".interactive");
-                            const houseName = listItem.dataset.house;
-                            const studentIndex = parseInt(listItem.dataset.index, 10);
-                            const student = houses[houseName].students[studentIndex];
-
-                            if (target.classList.contains("plus")) {
-                                student.points++;
-                            } else if (target.classList.contains("minus")) {
-                                student.points--;
-                            }
-
-                            listItem.querySelector(".student-points").textContent = student.points;
-                            recalculateHousePoints(houseName);
-                            updateLeaderboards();
-                        }
-                    };
-
-                    const exportToExcel = () => {
-                        const workbook = XLSX.utils.book_new();
-
-                        const houseData = [["House", "Points"]];
-                        for (const [house, data] of Object.entries(houses)) {
-                            houseData.push([house.charAt(0).toUpperCase() + house.slice(1), data.points]);
-                        }
-                        const houseSheet = XLSX.utils.aoa_to_sheet(houseData);
-                        XLSX.utils.book_append_sheet(workbook, houseSheet, "House Scores");
-
-                        const studentData = [["House", "Name", "Points"]];
-                        for (const [house, data] of Object.entries(houses)) {
-                            data.students.forEach(student => {
-                                studentData.push([house.charAt(0).toUpperCase() + house.slice(1), student.name, student.points]);
-                            });
-                        }
-                        const studentSheet = XLSX.utils.aoa_to_sheet(studentData);
-                        XLSX.utils.book_append_sheet(workbook, studentSheet, "Student Scores");
-
-                        XLSX.writeFile(workbook, "Marian_House_Points.xlsx");
-                    };
-
-                    renderHouses();
+                    listItem.querySelector(".student-points").textContent = student.points;
+                    recalculateHousePoints(houseName);
                     updateLeaderboards();
-                    document.querySelector(".houses").addEventListener("click", handleClick);
-                    document.getElementById("export-button").addEventListener("click", exportToExcel);
-                })
-                .catch(error => console.error("Error loading house data:", error));
+                }
+            };
+
+            const exportToExcel = () => {
+                const workbook = XLSX.utils.book_new();
+
+                const houseData = [["House", "Points"]];
+                for (const [house, data] of Object.entries(houses)) {
+                    houseData.push([house.charAt(0).toUpperCase() + house.slice(1), data.points]);
+                }
+                const houseSheet = XLSX.utils.aoa_to_sheet(houseData);
+                XLSX.utils.book_append_sheet(workbook, houseSheet, "House Scores");
+
+                const studentData = [["House", "Name", "Points"]];
+                for (const [house, data] of Object.entries(houses)) {
+                    data.students.forEach(student => {
+                        studentData.push([house.charAt(0).toUpperCase() + house.slice(1), student.name, student.points]);
+                    });
+                }
+                const studentSheet = XLSX.utils.aoa_to_sheet(studentData);
+                XLSX.utils.book_append_sheet(workbook, studentSheet, "Student Scores");
+
+                XLSX.writeFile(workbook, "Marian_House_Points.xlsx");
+            };
+
+            const resetScores = () => {
+                for (const house of Object.values(houses)) {
+                    house.points = 0;
+                    house.students.forEach(student => {
+                        student.points = 0;
+                    });
+                }
+                renderHouses();
+                updateLeaderboards();
+            };
+
+            // Load initial data
+            fetchData();
+
+            // Event listeners
+            document.querySelector(".houses").addEventListener("click", handleClick);
+            document.getElementById("export-button").addEventListener("click", exportToExcel);
+            document.getElementById("restart-button").addEventListener("click", resetScores);
+            document.getElementById("load-json-button").addEventListener("click", fetchData);
         });
     </script>
 </body>
