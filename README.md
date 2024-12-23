@@ -25,20 +25,20 @@ The app is built using HTML, CSS, and JavaScript, with a responsive and interact
 ### Next Steps
 To enhance the functionality, the following features are planned:
 
-1. **Interactive Buttons**:
-   - Implement JavaScript to make the "+" and "-" buttons update the totals for both students and houses dynamically.
-
-2. **House Points Totals**:
+1. **House Points Totals**:
    - Add a total points section to each house card, updating as student points change.
 
-3. **Student Points Display**:
-   - Show the points next to each student's name in the house rosters.
-
-4. **Excel Save-Off**:
+2. **Excel Save-Off**:
    - Add a feature to export the current points data as an Excel file for quarterly reporting.
 
-5. **Data Upload Tool**:
+3. **Data Upload Tool**:
    - Create an upload feature to allow administrators to load data from Excel, enabling efficient updates to rosters and scores.
+
+4. **Add a reset button**:
+   -Add a reset button with passowrd authorization.
+
+5. **Require passcode**:
+   -Require a passcode to access the site. 
 
 ## How to Run
 1. Open the `index.html` file in a web browser.
