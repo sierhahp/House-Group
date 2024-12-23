@@ -121,20 +121,33 @@
 
         ul li {
             display: flex;
-            justify-content: space-between;
             align-items: center;
             margin-bottom: 5px;
         }
 
-        button {
+        ul li span.name {
+            flex: 2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        ul li span.points {
+            flex: 1;
+            text-align: center;
+        }
+
+        ul li button {
+            flex: 0 0 30px;
+            margin: 0 5px;
             background-color: #ddd;
             border: 1px solid #ccc;
-            padding: 5px 10px;
+            padding: 5px;
             border-radius: 5px;
             cursor: pointer;
         }
 
-        button:hover {
+        ul li button:hover {
             background-color: #ccc;
         }
     </style>
@@ -234,13 +247,15 @@
                     .join('');
 
                 // Update Student Leaderboard (Top 25)
-                const allStudents = Object.values(houses)
-                    .flatMap(house => house.students.map(student => ({ ...student, house: house })))
+                const allStudents = Object.entries(houses)
+                    .flatMap(([houseName, houseData]) => 
+                        houseData.students.map(student => ({ ...student, house: houseName }))
+                    )
                     .sort((a, b) => b.points - a.points)
                     .slice(0, 25);
 
                 studentLeaderboard.innerHTML = allStudents
-                    .map(student => `<li>${student.name} (${student.house})<span>${student.points}</span></li>`)
+                    .map(student => `<li>${student.name} (${student.house.charAt(0).toUpperCase() + student.house.slice(1)})<span>${student.points}</span></li>`)
                     .join('');
             };
 
@@ -253,9 +268,9 @@
                     <ul>
                         ${houseData.students.map((student, index) => `
                             <li>
-                                <span>${student.name}</span>
+                                <span class="name">${student.name}</span>
                                 <button onclick="updatePoints('${houseName}', ${index}, -1)">-</button>
-                                <span id="${houseName}-student-${index}">${student.points}</span>
+                                <span class="points" id="${houseName}-student-${index}">${student.points}</span>
                                 <button onclick="updatePoints('${houseName}', ${index}, 1)">+</button>
                             </li>
                         `).join('')}
