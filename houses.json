@@ -2,82 +2,82 @@
     "red": {
         "points": 196,
         "students": [
-            { "name": "Allison Garcia-Guerrero", "points": 37 },
-            { "name": "Carmen Arriaga", "points": 34 },
-            { "name": "Chloe Williams", "points": 33 },
-            { "name": "Gabrielle Jones", "points": 20 },
-            { "name": "Jaleeya Blackmon", "points": 20 },
-            { "name": "Jazarai Brandon", "points": 22 },
-            { "name": "Kynnedi Mitchell", "points": 9 },
-            { "name": "Lauryn Jackson", "points": 28 },
-            { "name": "Valeria Lopez-Bello", "points": 39 }
+            { "name": "Ava Smith", "points": 37 },
+            { "name": "Sophia Johnson", "points": 34 },
+            { "name": "Emma Brown", "points": 33 },
+            { "name": "Olivia Davis", "points": 20 },
+            { "name": "Isabella Martinez", "points": 20 },
+            { "name": "Mia Garcia", "points": 22 },
+            { "name": "Amelia Miller", "points": 9 },
+            { "name": "Harper Wilson", "points": 28 },
+            { "name": "Evelyn Moore", "points": 39 }
         ]
     },
     "orange": {
         "points": 206,
         "students": [
-            { "name": "Alana Alexander", "points": 22 },
-            { "name": "Ana Perez Maya", "points": 34 },
-            { "name": "Carolina Medina Mejia", "points": 36 },
-            { "name": "Coraji Yatah Brooks", "points": 14 },
-            { "name": "Fytiha Bradley-Davis", "points": 17 },
-            { "name": "Jannely Sanchez Olvera", "points": 39 },
-            { "name": "KyLee Grimes", "points": 29 },
-            { "name": "Markiya Jones", "points": 18 },
-            { "name": "Tamia Daniel", "points": 26 }
+            { "name": "Scarlett Taylor", "points": 22 },
+            { "name": "Aria Thomas", "points": 34 },
+            { "name": "Luna White", "points": 36 },
+            { "name": "Ella Harris", "points": 14 },
+            { "name": "Sofia Clark", "points": 17 },
+            { "name": "Camila Lewis", "points": 39 },
+            { "name": "Penelope Hall", "points": 29 },
+            { "name": "Victoria Allen", "points": 18 },
+            { "name": "Madison Young", "points": 26 }
         ]
     },
     "yellow": {
         "points": 206,
         "students": [
-            { "name": "Allison Escoto Montoya", "points": 13 },
-            { "name": "Essence Brooks", "points": 24 },
-            { "name": "Hannah Foster", "points": 48 },
-            { "name": "Londyn York", "points": 15 },
-            { "name": "Peyton Brown", "points": 28 },
-            { "name": "Rose Dees", "points": 20 },
-            { "name": "Sophia Chrissos", "points": 48 },
-            { "name": "Taliiy'n Jones", "points": 17 }
+            { "name": "Layla King", "points": 13 },
+            { "name": "Chloe Wright", "points": 24 },
+            { "name": "Zoe Scott", "points": 48 },
+            { "name": "Hannah Green", "points": 15 },
+            { "name": "Nora Adams", "points": 28 },
+            { "name": "Lily Baker", "points": 20 },
+            { "name": "Ellie Gonzalez", "points": 48 },
+            { "name": "Grace Nelson", "points": 17 }
         ]
     },
     "green": {
         "points": 179,
         "students": [
-            { "name": "Autumn Brown", "points": 32 },
-            { "name": "Cidney Young", "points": 5 },
-            { "name": "Emily Elliott", "points": 24 },
-            { "name": "Ivy Robertson", "points": 36 },
-            { "name": "Myracle Pie", "points": 27 },
-            { "name": "Phoenix Harsley", "points": 47 },
-            { "name": "Shawnee Lampkin", "points": 25 },
-            { "name": "Ta'Niyah Evans", "points": -1 }
+            { "name": "Stella Carter", "points": 32 },
+            { "name": "Lucy Mitchell", "points": 5 },
+            { "name": "Aurora Perez", "points": 24 },
+            { "name": "Hazel Roberts", "points": 36 },
+            { "name": "Violet Turner", "points": 27 },
+            { "name": "Addison Parker", "points": 47 },
+            { "name": "Paisley Edwards", "points": 25 },
+            { "name": "Aubrey Collins", "points": -1 }
         ]
     },
     "blue": {
         "points": 168,
         "students": [
-            { "name": "Isabelle Comfort", "points": 32 },
-            { "name": "Jayla Smith", "points": 11 },
-            { "name": "Kaitlyn Morgado-Palacios", "points": 36 },
-            { "name": "Kenya McGee", "points": 7 },
-            { "name": "Nevaeh Wilson", "points": 18 },
-            { "name": "Paidyn Bledsoe", "points": 22 },
-            { "name": "Rachel Herron", "points": 23 },
-            { "name": "Ryder Robertson", "points": 18 },
-            { "name": "Rylie Higdon", "points": 25 }
+            { "name": "Brooklyn Stewart", "points": 32 },
+            { "name": "Savannah Morris", "points": 11 },
+            { "name": "Leah Rogers", "points": 36 },
+            { "name": "Audrey Reed", "points": 7 },
+            { "name": "Skylar Cook", "points": 18 },
+            { "name": "Claire Bell", "points": 22 },
+            { "name": "Sadie Lee", "points": 23 },
+            { "name": "Julia Walker", "points": 18 },
+            { "name": "Vivian Hughes", "points": 25 }
         ]
     },
     "purple": {
         "points": 152,
         "students": [
-            { "name": "Abibatou Watson", "points": 14 },
-            { "name": "Aubri Robinson", "points": 7 },
-            { "name": "Blaize Rice", "points": 22 },
-            { "name": "Brylea Gather", "points": 33 },
-            { "name": "De'Aunna Whitfield", "points": 30 },
-            { "name": "Gabby Criss", "points": 28 },
-            { "name": "Heavenlee Criss", "points": 10 },
-            { "name": "McKenzie Poynter", "points": 27 }
+            { "name": "Cora Flores", "points": 14 },
+            { "name": "Elena Rivera", "points": 7 },
+            { "name": "Alice Sanders", "points": 22 },
+            { "name": "Mila Price", "points": 33 },
+            { "name": "Isla Brooks", "points": 30 },
+            { "name": "Maya Murphy", "points": 28 },
+            { "name": "Aurora Bailey", "points": 10 },
+            { "name": "Piper Barnes", "points": 27 }
         ]
     }
 }
